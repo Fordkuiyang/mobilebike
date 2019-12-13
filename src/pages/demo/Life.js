@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'antd';
 import './../demo/life.less';
 class Life extends React.Component {
     render() {
@@ -10,6 +11,7 @@ class Life extends React.Component {
                 <div className="content">
                     this is two life
                 </div>
+                <Button>Antd Button</Button>
             </div>
         )
     }

@@ -11,7 +11,7 @@ class Life extends React.Component {
                 <div className="content">
                     this is two life
                 </div>
-                <Button>Antd Button</Button>
+                <Button type="primary">Antd Button</Button>
             </div>
         )
     }

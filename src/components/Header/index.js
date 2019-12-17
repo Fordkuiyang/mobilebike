@@ -40,8 +40,8 @@ class Header extends React.Component {
 
   render() {
     return (
-      <div>
-        <Row className="header">
+      <div className="header">
+        <Row>
           <Col span={24} className="header-top">
             <span>欢迎，{this.state.userName}</span>
             <a href="#">退出</a>

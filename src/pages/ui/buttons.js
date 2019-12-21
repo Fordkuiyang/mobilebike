@@ -1,17 +1,23 @@
 import React from "react";
-import { Card, Button } from "antd";
+import { Card, Button, Radio } from "antd";
 import "./ui.less";
 class Buttons extends React.Component {
-  state = { loading: true };
+  state = { loading: true, size: "default" };
   handleCloseLoading = () => {
     this.setState({
       loading: !this.state.loading
     });
   };
+
+  handleChange = e => {
+    this.setState({
+      size: e.target.value
+    });
+  };
   render() {
     return (
       <div>
-        <Card title="基础按钮">
+        <Card title="基础按钮" className="card-wrap">
           <Button type="primary">Imooc</Button>
           <Button>Imooc</Button>
           <Button type="dashed">Imooc</Button>
@@ -19,7 +25,7 @@ class Buttons extends React.Component {
           <Button disabled>Imooc</Button>
         </Card>
 
-        <Card title="图形按钮">
+        <Card title="图形按钮" className="card-wrap">
           <Button icon="plus">创建</Button>
           <Button icon="edit">编辑</Button>
           <Button icon="delete">删除</Button>
@@ -32,7 +38,7 @@ class Buttons extends React.Component {
           </Button>
         </Card>
 
-        <Card title="Loading按钮">
+        <Card title="Loading按钮" className="card-wrap">
           <Button type="primary" loading={this.state.loading}>
             确定
           </Button>
@@ -46,6 +52,33 @@ class Buttons extends React.Component {
           <Button type="primary" onClick={this.handleCloseLoading}>
             关闭
           </Button>
+        </Card>
+
+        <Card title="按钮组">
+          <Button.Group>
+            <Button icon="left">返回</Button>
+            <Button icon="right">前进</Button>
+          </Button.Group>
+        </Card>
+
+        <Card title="按钮尺寸" className="card-wrap">
+          <Radio.Group value={this.state.size} onChange={this.handleChange}>
+            <Radio value="small">小</Radio>
+            <Radio value="default">中</Radio>
+            <Radio value="large">大</Radio>
+          </Radio.Group>
+          <Button.Group>
+            <Button type="primary" size={this.state.size}>
+              Imooc
+            </Button>
+            <Button size={this.state.size}>Imooc</Button>
+            <Button type="dashed" size={this.state.size}>
+              Imooc
+            </Button>
+            <Button type="danger" size={this.state.size}>
+              Imooc
+            </Button>
+          </Button.Group>
         </Card>
       </div>
     );

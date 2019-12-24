@@ -6,7 +6,7 @@ class TabPages extends React.Component {
   callback = key => {
     message.info("hi, 你选择了页签：" + key);
   };
-
+  newTabIndex = 0;
   componentWillMount() {
     const panes = [
       {
@@ -26,9 +26,48 @@ class TabPages extends React.Component {
       }
     ];
     this.setState({
+      activeKey: panes[0].key,
       panes
     });
   }
+
+  onChange = activeKey => {
+    this.setState({ activeKey });
+  };
+
+  onEdit = (targetKey, action) => {
+    this[action](targetKey);
+  };
+
+  add = () => {
+    const { panes } = this.state;
+    const activeKey = `newTab${this.newTabIndex++}`;
+    panes.push({
+      title: activeKey,
+      content: `Content of ${activeKey}`,
+      key: activeKey
+    });
+    this.setState({ panes, activeKey });
+  };
+
+  remove = targetKey => {
+    let { activeKey } = this.state;
+    let lastIndex;
+    this.state.panes.forEach((pane, i) => {
+      if (pane.key === targetKey) {
+        lastIndex = i - 1;
+      }
+    });
+    const panes = this.state.panes.filter(pane => pane.key !== targetKey);
+    if (panes.length && activeKey === targetKey) {
+      if (lastIndex >= 0) {
+        activeKey = panes[lastIndex].key;
+      } else {
+        activeKey = panes[0].key;
+      }
+    }
+    this.setState({ panes, activeKey });
+  };
   render() {
     return (
       <div>
@@ -83,7 +122,12 @@ class TabPages extends React.Component {
           </Tabs>
         </Card>
         <Card title="Tab带图页签" className="card-wrap">
-          <Tabs defaultActiveKey="1" onChange={key => this.callback(key)}>
+          <Tabs
+            type="editable-card"
+            activeKey={this.state.activeKey}
+            onChange={this.onChange}
+            onEdit={this.onEdit}
+          >
             {this.state.panes.map(panel => {
               return (
                 <TabPane tab={panel.title} key={panel.key}>

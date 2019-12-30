@@ -121,7 +121,7 @@ class TabPages extends React.Component {
             </TabPane>
           </Tabs>
         </Card>
-        <Card title="Tab带图页签" className="card-wrap">
+        <Card title="动态添加删除Tab页签" className="card-wrap">
           <Tabs
             type="editable-card"
             activeKey={this.state.activeKey}

@@ -46,12 +46,12 @@ class FormRegister extends React.Component {
     let userInfo = this.props.form.getFieldsValue();
     console.log(JSON.stringify(userInfo));
     this.props.form.validateFields((err, values) => {
-        if (!err) {
-          message.success(
-            `${userInfo.userName}恭喜你，您通过本次表单组件学习，当前密码为${userInfo.userPwd}`
-          );
-        }
-      });
+      if (!err) {
+        message.success(
+          `${userInfo.userName}恭喜你，您通过本次表单组件学习，当前密码为${userInfo.userPwd}`
+        );
+      }
+    });
   };
   render() {
     const { getFieldDecorator } = this.props.form;

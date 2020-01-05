@@ -1,8 +1,13 @@
 import React from "react";
 import { Card, Table, Col, Modal, Button, message } from "antd";
 import axios from "./../../axios";
+import Util from "./../../utils/utils";
+import utils from "./../../utils/utils";
 class BasicTable extends React.Component {
   state = { dataSource2: [] };
+  params = {
+    page: 1
+  };
   componentDidMount() {
     const data = [
       {
@@ -59,25 +64,31 @@ class BasicTable extends React.Component {
 
   //动态获取数据
   request = () => {
+    let _this = this;
     axios
       .ajax({
         url: "/table/list",
         data: {
           params: {
-            page: 1
+            page: this.params.page
           },
           isShowloading: true
         }
       })
       .then(res => {
         if (res.code === 0) {
-          res.lives.map((item, index) => {
+          res.lives.list.map((item, index) => {
             item.key = index;
           });
           this.setState({
-            dataSource2: res.lives,
+            dataSource2: res.lives.list,
             selectedRowKeys: [],
-            selectedRows: null
+            selectedRows: null,
+            pagination: utils.pagination(res, current => {
+              //todoll
+              _this.params.page = current;
+              this.request();
+            })
           });
         }
       });
@@ -236,6 +247,17 @@ class BasicTable extends React.Component {
             }}
             pagination={false}
             dataSource={this.state.dataSource2}
+          ></Table>
+        </Card>
+        <Card title="Mock-表格分页" style={{ margin: "10px 0" }}>
+          <div style={{ marginBottom: 10 }}>
+            <Button onClick={this.handleDelete}>删除</Button>
+          </div>
+          <Table
+            columns={columns}
+            bordered
+            dataSource={this.state.dataSource2}
+            pagination={this.state.pagination}
           ></Table>
         </Card>
       </div>

@@ -1,4 +1,9 @@
 <<<<<<< HEAD
+
+cd D:\Program Files\Redis
+restart Redis Commands:
+redis-server --service-install redis.windows.conf
+Re
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

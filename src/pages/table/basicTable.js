@@ -238,13 +238,6 @@ class BasicTable extends React.Component {
             columns={columns}
             bordered
             rowSelection={rowCheckBoxSelection}
-            onRow={(record, index) => {
-              return {
-                onClick: () => {
-                  this.onRowClick(record, index);
-                } // 点击行
-              };
-            }}
             pagination={false}
             dataSource={this.state.dataSource2}
           ></Table>
